@@ -21,3 +21,5 @@
 
 - Keep this project’s generated Cloud clients and migration history separate from imported source configuration to avoid connecting to the original app’s private data.
 - Public insert-only submission clients fall back to the project's compiled VITE public configuration when server bindings are absent, so external deployments retain submission access without embedding private credentials.
+- Corporate PDFs and extracted facility photos use CDN pointers via the shared public asset-origin helper; News & Events preserves its existing URL and event detail links.
+- Home facility slides use a browser-safe media catalogue and reduced-motion-aware timer; shared social icons keep navigation accessible without visible platform names.

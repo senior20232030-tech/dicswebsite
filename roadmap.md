@@ -1,4 +1,5 @@
 # Repository import
+- [x] Add real-photo home slideshow, header social icons, and News & Events journey PDF with two event dropdown links.
 - [x] Make logos compact and replace blurry CKD artwork.
 - [x] Fix enquiry configuration failures on external deployments and retest email acceptance.
 - [x] Show logo-only brand navigation and listing, without countries, in the requested order.

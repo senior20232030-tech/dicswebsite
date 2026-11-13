@@ -7,6 +7,7 @@ import { brands, featuredCategorySlugs, images, industries, services, company } 
 import { getCategory, getProduct, productsIn, type Product } from "@/lib/catalog";
 import { seo } from "@/lib/seo";
 import { BrandLogo } from "@/components/site/BrandLogo";
+import { HomeSlideshow } from "@/components/site/HomeSlideshow";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -84,6 +85,7 @@ function Home() {
       </section>
 
       {/* Intro */}
+      <HomeSlideshow />
       <section className="py-20 lg:py-28">
         <div className="container-site grid items-center gap-12 lg:grid-cols-2">
           <Reveal className="relative">

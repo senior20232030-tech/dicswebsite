@@ -1,18 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/site/Blocks";
 import { events } from "@/lib/events";
 import { seo } from "@/lib/seo";
+import { journeyPdf } from "@/lib/news";
 
 export const Route = createFileRoute("/events")({
-  head: () => ({ meta: seo("Events & Exhibitions", "Milestones, exhibitions and technical events from DICS — Digital Instruments & Control Systems.") }),
+  head: () => ({ meta: seo("News & Events — Our Journey", "Explore the DICS and Sansree corporate journey since 1996, our company presentation, milestones and exhibitions.") }),
   component: Events,
 });
 
 function Events() {
   return (
     <>
-      <PageHeader title="Events & exhibitions" eyebrow="Events" crumbs={[{ label: "Events" }]} intro="Milestones, trade shows and technical sessions where you can meet the DICS team." />
+      <PageHeader title="News & Events" eyebrow="DICS" crumbs={[{ label: "News & Events" }]} />
+      <section className="container-site py-10">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+          <div><h2 className="text-2xl font-bold">Our Journey</h2><p className="mt-1 text-sm text-muted-foreground">Digital Instruments &amp; Control Systems · Sansree Automation · Since 1996</p></div>
+          <div className="flex gap-2">
+            <Button asChild variant="outline"><a href={journeyPdf} target="_blank" rel="noopener noreferrer"><ExternalLink /> Open PDF</a></Button>
+            <Button asChild><a href={journeyPdf} download="DICS-Corporate-Journey-2026.pdf" target="_blank" rel="noopener noreferrer"><Download /> Download</a></Button>
+          </div>
+        </div>
+        <object data={`${journeyPdf}#page=4&view=FitH`} type="application/pdf" aria-label="DICS corporate journey presentation" className="h-[65vh] min-h-80 w-full border border-border bg-tech">
+          <div className="grid min-h-80 place-items-center"><Button asChild variant="outline"><a href={journeyPdf} target="_blank" rel="noopener noreferrer">View Our Journey <ExternalLink /></a></Button></div>
+        </object>
+      </section>
       <section className="container-site py-16 lg:py-20">
         <div className="grid gap-8 md:grid-cols-2">
           {events.map((e) => (
