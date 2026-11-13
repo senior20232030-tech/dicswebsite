@@ -83,7 +83,7 @@ export function Header() {
       {/* Top info bar */}
       <div className="hidden bg-navy-deep text-navy-muted md:block">
         <div className="container-site flex h-9 items-center justify-between text-xs">
-          <p>Industrial automation products & engineering services since {company.founded}</p>
+          <p>Digital Instruments &amp; Control Systems Since {company.founded}</p>
           <ul className="flex items-center gap-4">
             {company.socials.map((s) => (
               <li key={s.name}><a href={s.href} target="_blank" rel="noopener noreferrer" className="hover:text-navy-foreground">{s.name}</a></li>

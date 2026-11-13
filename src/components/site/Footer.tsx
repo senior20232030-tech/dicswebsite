@@ -1,5 +1,9 @@
+import type React from "react";
 import { Link } from "@tanstack/react-router";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Youtube } from "lucide-react";
+
+const XIcon = ({ className }: { className?: string }) => (<svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden><path d="M18.9 2H22l-6.8 7.8L23 22h-6.3l-4.9-6.4L6.2 22H3l7.3-8.4L1 2h6.4l4.4 5.9L18.9 2Zm-1.1 18h1.7L6.3 3.9H4.5L17.8 20Z" /></svg>);
+const socialIcons: Record<string, React.ComponentType<{ className?: string }>> = { LinkedIn: Linkedin, Facebook, Instagram, YouTube: Youtube, X: XIcon };
 import logo from "@/assets/dics-logo.png";
 import { brands, company, featuredCategorySlugs, services } from "@/lib/site";
 import { categoryPath, getCategory } from "@/lib/catalog";
@@ -52,8 +56,8 @@ export function Footer() {
       <div className="border-t border-navy-foreground/10">
         <div className="container-site flex flex-col gap-3 py-6 text-xs md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Digital Instruments & Control Systems. All rights reserved.</p>
-          <div className="flex flex-wrap gap-4">
-            {company.socials.map((s) => <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:text-navy-foreground">{s.name}</a>)}
+          <div className="flex flex-wrap items-center gap-4">
+            {company.socials.map((s) => <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name} title={s.name} className="hover:text-navy-foreground">{(() => { const I = socialIcons[s.name]; return I ? <I className="h-5 w-5" /> : s.name; })()}</a>)}
             <Link to="/privacy-policy" className="hover:text-navy-foreground">Privacy Policy</Link>
           </div>
         </div>
