@@ -7,6 +7,8 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/s
 import { brands, company, services } from "@/lib/site";
 import { categoryPath, childrenOf, getCategory } from "@/lib/catalog";
 import { BrandLogo } from "@/components/site/BrandLogo";
+import { SocialIcon } from "@/components/site/SocialIcon";
+import { events } from "@/lib/events";
 
 const productGroups = [
   { title: "Control & Automation", slugs: ["automation-systems", "control-components", "motion-controller", "robotics"] },
@@ -14,7 +16,7 @@ const productGroups = [
   { title: "Sensing & Signalling", slugs: ["sensors-switches", "instrumentation", "patlite", "switches"] },
 ];
 
-type MenuKey = "products" | "services" | "brands" | null;
+type MenuKey = "products" | "services" | "brands" | "events" | null;
 
 function CatLink({ slug, onNavigate }: { slug: string; onNavigate: () => void }) {
   const c = getCategory(slug);
@@ -86,7 +88,7 @@ export function Header() {
           <p>Digital Instruments &amp; Control Systems Since {company.founded}</p>
           <ul className="flex items-center gap-4">
             {company.socials.map((s) => (
-              <li key={s.name}><a href={s.href} target="_blank" rel="noopener noreferrer" className="hover:text-navy-foreground">{s.name}</a></li>
+              <li key={s.name}><a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name} title={s.name} className="flex h-7 w-7 items-center justify-center text-navy-foreground hover:opacity-75"><SocialIcon name={s.name} /></a></li>
             ))}
           </ul>
         </div>
@@ -144,7 +146,10 @@ export function Header() {
             {trigger("products", "Products")}
             {trigger("services", "Services")}
             {plain("/industries", "Industries")}
-            {plain("/events", "Events")}
+            <div className="flex items-center" onMouseEnter={() => setOpen("events")}>
+              <Link to="/events" className="flex h-14 items-center pl-3 text-sm font-medium text-navy-foreground">News &amp; Events</Link>
+              <Button variant="ghost" size="icon" className="h-9 w-7 text-navy-foreground hover:bg-navy-foreground/10" aria-label="Open News & Events menu" aria-expanded={open === "events"} onClick={() => setOpen(open === "events" ? null : "events")}><ChevronDown /></Button>
+            </div>
             {trigger("brands", "Our Brands")}
             {plain("/careers", "Careers")}
             {plain("/contact-us", "Contact Us")}
@@ -157,6 +162,12 @@ export function Header() {
         {open && (
           <div className="absolute inset-x-0 top-full border-b border-border bg-card shadow-lift animate-in fade-in-0 slide-in-from-top-1">
             <div className="container-site py-8">
+              {open === "events" && (
+                <ul className="grid gap-2">
+                  <li><Link to="/events" onClick={close} className="block rounded-md p-3 font-semibold text-primary hover:bg-tech">Our Journey</Link></li>
+                  {events.map((event) => <li key={event.slug}><Link to="/events/$slug" params={{ slug: event.slug }} onClick={close} className="block rounded-md p-3 text-sm font-medium text-foreground hover:bg-tech">{event.title}</Link></li>)}
+                </ul>
+              )}
               {open === "products" && (
                 <div className="grid grid-cols-[1fr_1fr_1fr_16rem] gap-8">
                   {productGroups.map((g) => (
@@ -239,7 +250,14 @@ function MobileNav({ onNavigate }: { onNavigate: () => void }) {
         </ul>
       )}
       <Link to="/industries" className={row}>Industries</Link>
-      <Link to="/events" className={row}>Events</Link>
+      <div className="flex items-center border-b border-border">
+        <Link to="/events" onClick={onNavigate} className="flex-1 px-5 py-4 font-medium text-navy">News &amp; Events</Link>
+        <Button variant="ghost" size="icon" className="mr-4" aria-label="Open News & Events menu" aria-expanded={sec === "e"} onClick={() => toggle("e")}><ChevronDown /></Button>
+      </div>
+      {sec === "e" && <ul className="bg-tech px-5 py-2">
+        <li><Link to="/events" onClick={onNavigate} className="block py-2 text-sm font-semibold text-primary">Our Journey</Link></li>
+        {events.map((event) => <li key={event.slug}><Link to="/events/$slug" params={{ slug: event.slug }} onClick={onNavigate} className="block py-2 text-sm">{event.title}</Link></li>)}
+      </ul>}
       <button type="button" className={row} aria-expanded={sec === "b"} onClick={() => toggle("b")}>Our Brands <ChevronDown className="h-4 w-4" /></button>
       {sec === "b" && (
         <ul className="grid grid-cols-2 gap-3 bg-tech px-5 py-3">
