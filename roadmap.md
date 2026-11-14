@@ -1,4 +1,6 @@
 # Repository import
+- [x] Replace the News & Events PDF viewer with a designed journey page using the PDF’s content and original images.
+- [x] Replace the mismatched CKD artwork with its official logo across the shared brand displays.
 - [x] Add real-photo home slideshow, header social icons, and News & Events journey PDF with two event dropdown links.
 - [x] Make logos compact and replace blurry CKD artwork.
 - [x] Fix enquiry configuration failures on external deployments and retest email acceptance.

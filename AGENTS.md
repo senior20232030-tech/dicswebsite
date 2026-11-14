@@ -23,3 +23,4 @@
 - Public insert-only submission clients fall back to the project's compiled VITE public configuration when server bindings are absent, so external deployments retain submission access without embedding private credentials.
 - Corporate PDFs and extracted facility photos use CDN pointers via the shared public asset-origin helper; News & Events preserves its existing URL and event detail links.
 - Home facility slides use a browser-safe media catalogue and reduced-motion-aware timer; shared social icons keep navigation accessible without visible platform names.
+- The corporate journey uses a browser-safe presentation data module and original extracted CDN photos, separate from event detail data, so the PDF can be presented as a native page without changing other company pages.
